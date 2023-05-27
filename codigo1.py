@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox
 from PyQt6 import QtCore, QtGui
 
 
@@ -62,8 +62,18 @@ class InventoryWindow(QWidget):
 
         self.data_label = QLabel()
 
+        self.view_label = QLabel("Seleccione una opción:")
+        self.view_combo = QComboBox()
+        self.view_combo.addItem("Materiales")
+        self.view_combo.addItem("Insumos")
+        self.view_combo.addItem("Herramientas")
+        self.view_combo.addItem("Muebles")
+        self.view_combo.addItem("Vehiculos")
+
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
+        layout.addWidget(self.view_label)  
+        layout.addWidget(self.view_combo)
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
