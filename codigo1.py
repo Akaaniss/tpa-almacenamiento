@@ -75,10 +75,23 @@ class InventoryWindow(QWidget):
         column_labels = ["Nombre de producto", "ID", "Cantidad", "Fecha de vencimiento", "Habitación", "Actualizar stock"]
         self.table.setHorizontalHeaderLabels(column_labels)
 
+        self.add_button = QPushButton("Agregar producto")
+        self.add_button.clicked.connect(self.add_product)
+
+        self.update_button = QPushButton("Actualizar producto")
+        self.update_button.clicked.connect(self.update_product)
+
+        self.delete_button = QPushButton("Eliminar producto")
+        self.delete_button.clicked.connect(self.delete_product)
+    
+
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
         layout.addWidget(self.category_combobox)
         layout.addWidget(self.table)
+        layout.addWidget(self.add_button)
+        layout.addWidget(self.update_button)
+        layout.addWidget(self.delete_button)
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
@@ -91,6 +104,14 @@ class InventoryWindow(QWidget):
     def go_back(self):
         self.main_window.show()
         self.hide()
+    def add_product(self):
+        pass
+
+    def update_product(self):
+        pass
+
+    def delete_product(self):
+        pass
 
 
 class ModifyWindow(QWidget):
