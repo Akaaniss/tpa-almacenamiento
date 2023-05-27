@@ -69,17 +69,17 @@ class InventoryWindow(QWidget):
         self.view_combo.addItem("Herramientas")
         self.view_combo.addItem("Muebles")
         self.view_combo.addItem("Vehiculos")
-        self.view_combo.currentIndexChanged.connect(self.show_table) #######3
+        self.view_combo.currentIndexChanged.connect(self.show_table) 
 
-        self.table = QTableWidget() ########
-        self.table.setRowCount(6)  ############
-        self.table.setColumnCount(10) #######3
+        self.table = QTableWidget() 
+        self.table.setRowCount(6)  
+        self.table.setColumnCount(10) 
 
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
         layout.addWidget(self.view_label)  
         layout.addWidget(self.view_combo)
-        layout.addWidget(self.table)  #######
+        layout.addWidget(self.table)  
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
@@ -93,7 +93,6 @@ class InventoryWindow(QWidget):
         self.main_window.show()
         self.hide()
 
-    ##############
     def show_table(self):
         selected_option = self.view_combo.currentText()
         if selected_option == "Materiales":
