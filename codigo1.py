@@ -173,17 +173,29 @@ class ModifyWindow(QWidget):
 
         self.data_label = QLabel()
 
-        self.product_name_label = QLabel("Nombre del producto:")
-        self.product_name_input = QLineEdit()
-        self.add_button = QPushButton("Agregar producto")
-        self.add_button.clicked.connect(self.add_product)
+        self.name_label = QLabel("Nombre:")
+        self.name_input = QLineEdit()
+
+        self.quantity_label = QLabel("Cantidad:")
+        self.quantity_input = QLineEdit()
+
+        self.expiry_label = QLabel("Fecha de vencimiento:")
+        self.expiry_input = QLineEdit()
+
+        self.update_button = QPushButton("Actualizar")
+        self.update_button.clicked.connect(self.update_product)
 
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
-        layout.addWidget(self.product_name_label)
-        layout.addWidget(self.product_name_input)
-        layout.addWidget(self.add_button)
+        layout.addWidget(self.name_label)
+        layout.addWidget(self.name_input)
+        layout.addWidget(self.quantity_label)
+        layout.addWidget(self.quantity_input)
+        layout.addWidget(self.expiry_label)
+        layout.addWidget(self.expiry_input)
+        layout.addWidget(self.update_button)
         layout.addWidget(self.back_button)
+
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
@@ -191,14 +203,17 @@ class ModifyWindow(QWidget):
 
     def set_data(self, data):
         self.data_label.setText(data)
-    def add_product(self):
-        product_name = self.product_name_input.text()
 
-        self.data_label.setText("Producto agregado correctamente")  
-        
     def go_back(self):
         self.main_window.show()
-        self.hide()
+        self.hide()    
+
+    def update_product(self):
+        name = self.name_input.text()
+        quantity = self.quantity_input.text()
+        expiry = self.expiry_input.text()
+
+
 
 
 if __name__ == '__main__':
