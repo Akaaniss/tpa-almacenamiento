@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
         self.label = QLabel("¿Qué desea hacer?")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("font-size: 24px;")
-        
+
         self.visualize_button = QPushButton("Visualizar productos")
         self.visualize_button.clicked.connect(self.open_inventory)
         self.visualize_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
@@ -34,11 +34,13 @@ class MainWindow(QMainWindow):
 
     def open_inventory(self):
         inventory_window = InventoryWindow()
+        inventory_window.set_data("Información de visualización de productos")  
         inventory_window.show()
         self.hide()
 
     def open_modify_window(self):
         modify_window = ModifyWindow()
+        modify_window.set_data("Información para añadir o eliminar productos")  
         modify_window.show()
         self.hide()
 
@@ -52,12 +54,17 @@ class InventoryWindow(QWidget):
         self.back_button = QPushButton("Volver")
         self.back_button.clicked.connect(self.go_back)
 
+        self.data_label = QLabel()
+
         layout = QVBoxLayout()
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setLayout(layout)
+
+    def set_data(self, data):
+        self.data_label.setText(data) 
 
     def go_back(self):
         main_window = MainWindow()
@@ -74,12 +81,17 @@ class ModifyWindow(QWidget):
         self.back_button = QPushButton("Volver")
         self.back_button.clicked.connect(self.go_back)
 
+        self.data_label = QLabel()
+
         layout = QVBoxLayout()
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setLayout(layout)
+
+    def set_data(self, data):
+        self.data_label.setText(data)
 
     def go_back(self):
         main_window = MainWindow()
