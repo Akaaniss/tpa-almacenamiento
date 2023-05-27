@@ -22,13 +22,15 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
         layout.addWidget(self.label)
+        layout.addStretch()
         layout.addWidget(self.visualize_button)
         layout.addWidget(self.modify_button)
+        layout.addStretch()
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
-
+        
     def open_inventory(self):
         inventory_window = InventoryWindow()
         inventory_window.show()
