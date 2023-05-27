@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem,QLineEdit
 from PyQt6 import QtCore, QtGui
 
 
@@ -173,8 +173,16 @@ class ModifyWindow(QWidget):
 
         self.data_label = QLabel()
 
+        self.product_name_label = QLabel("Nombre del producto:")
+        self.product_name_input = QLineEdit()
+        self.add_button = QPushButton("Agregar producto")
+        self.add_button.clicked.connect(self.add_product)
+
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
+        layout.addWidget(self.product_name_label)
+        layout.addWidget(self.product_name_input)
+        layout.addWidget(self.add_button)
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
@@ -183,7 +191,11 @@ class ModifyWindow(QWidget):
 
     def set_data(self, data):
         self.data_label.setText(data)
+    def add_product(self):
+        product_name = self.product_name_input.text()
 
+        self.data_label.setText("Producto agregado correctamente")  
+        
     def go_back(self):
         self.main_window.show()
         self.hide()
