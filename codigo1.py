@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QComboBox,QTableWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget
 from PyQt6 import QtCore, QtGui
 
 
@@ -60,7 +60,7 @@ class InventoryWindow(QWidget):
         self.back_button = QPushButton("Volver")
         self.back_button.clicked.connect(self.go_back)
 
-        self.data_label = QLabel("Seleccione una categoria:")
+        self.data_label = QLabel("Seleccione una categoría:")
         self.category_combobox = QComboBox()
         self.category_combobox.addItem("Materiales")
         self.category_combobox.addItem("Herramientas")
@@ -75,23 +75,10 @@ class InventoryWindow(QWidget):
         column_labels = ["Nombre de producto", "ID", "Cantidad", "Fecha de vencimiento", "Habitación", "Actualizar stock"]
         self.table.setHorizontalHeaderLabels(column_labels)
 
-        self.add_button = QPushButton("Agregar producto")
-        self.add_button.clicked.connect(self.add_product)
-
-        self.update_button = QPushButton("Actualizar producto")
-        self.update_button.clicked.connect(self.update_product)
-
-        self.delete_button = QPushButton("Eliminar producto")
-        self.delete_button.clicked.connect(self.delete_product)
-    
-
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
         layout.addWidget(self.category_combobox)
         layout.addWidget(self.table)
-        layout.addWidget(self.add_button)
-        layout.addWidget(self.update_button)
-        layout.addWidget(self.delete_button)
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
@@ -104,14 +91,6 @@ class InventoryWindow(QWidget):
     def go_back(self):
         self.main_window.show()
         self.hide()
-    def add_product(self):
-        pass
-
-    def update_product(self):
-        pass
-
-    def delete_product(self):
-        pass
 
 
 class ModifyWindow(QWidget):
