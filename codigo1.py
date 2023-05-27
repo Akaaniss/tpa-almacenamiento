@@ -11,7 +11,8 @@ class MainWindow(QMainWindow):
 
         self.label = QLabel("¿Qué desea hacer?")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-
+        self.label.setStyleSheet("font-size: 24px;")
+        
         self.visualize_button = QPushButton("Visualizar productos")
         self.visualize_button.clicked.connect(self.open_inventory)
         self.visualize_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
-        
+
     def open_inventory(self):
         inventory_window = InventoryWindow()
         inventory_window.show()
