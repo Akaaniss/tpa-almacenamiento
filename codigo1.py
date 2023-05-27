@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QComboBox
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QComboBox,QTableWidget
 from PyQt6 import QtCore, QtGui
 
 
@@ -68,9 +68,17 @@ class InventoryWindow(QWidget):
         self.category_combobox.addItem("Muebles")
         self.category_combobox.addItem("Vehículos")
 
+        self.table = QTableWidget()
+        self.table.setColumnCount(6)
+        self.table.setRowCount(7)
+
+        column_labels = ["Nombre de producto", "ID", "Cantidad", "Fecha de vencimiento", "Habitación", "Actualizar stock"]
+        self.table.setHorizontalHeaderLabels(column_labels)
+
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
         layout.addWidget(self.category_combobox)
+        layout.addWidget(self.table)
         layout.addWidget(self.back_button)
 
         central_widget = QWidget()
