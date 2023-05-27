@@ -68,19 +68,13 @@ class InventoryWindow(QWidget):
         self.category_combobox.addItem("Muebles")
         self.category_combobox.addItem("Vehículos")
 
-        self.view_label = QLabel("Seleccione una opción:")
-        self.view_combo = QComboBox()
-        self.view_combo.addItem("Materiales")
-        self.view_combo.addItem("Insumos")
-        self.view_combo.addItem("Herramientas")
-        self.view_combo.addItem("Muebles")
-        self.view_combo.addItem("Vehiculos")
-
         layout = QVBoxLayout()
         layout.addWidget(self.data_label)
+        layout.addWidget(self.category_combobox)
         layout.addWidget(self.back_button)
 
-
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
         self.setLayout(layout)
 
     def set_data(self, data):
