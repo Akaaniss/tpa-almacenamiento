@@ -4,8 +4,8 @@ from PyQt6 import QtCore, QtGui
 
 
 class MainWindow(QMainWindow):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle("Sistema de almacenamiento")
         self.setGeometry(200, 200, 800, 600)
 
@@ -39,8 +39,8 @@ class MainWindow(QMainWindow):
 
 
 class InventoryWindow(QWidget):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle("Inventario")
         self.setGeometry(200, 200, 600, 400)
 
@@ -61,8 +61,8 @@ class InventoryWindow(QWidget):
 
 
 class ModifyWindow(QWidget):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle("Añadir o eliminar productos")
         self.setGeometry(200, 200, 600, 400)
 
@@ -82,7 +82,7 @@ class ModifyWindow(QWidget):
         self.hide()
 
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
