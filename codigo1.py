@@ -212,7 +212,7 @@ class ModifyWindow(QWidget):
         name = self.name_input.text()
         quantity = self.quantity_input.text()
         expiry = self.expiry_input.text()
-
+        print('hola')
 
 
 
