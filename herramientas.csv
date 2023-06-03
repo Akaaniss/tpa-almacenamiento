@@ -1,17 +1,17 @@
 Nombre,ID,Habitacion,Vida Util,Stock
-Cuchillos, 
-Tablas de cortar, 
-Sartenes, 
-Ollas, 
-Espátulas, 
-Batidoras, 
-Aspiradoras,
-Escobas, 
-Cubos de limpieza, 
-Carros de limpieza,
-Destornilladores, 
-Martillos, 
-Llaves inglesas, 
-Alicates,
-Taladros, 
-Sierras eléctricas
+Cuchillos, 025, garaje,5 años,100
+Tablas de cortar, 026, garaje,2anos,60
+Sartenes, 027, garaje,2 anos,55
+Ollas, 028, garaje, 2 anos,55
+Espátulas, 029, garaje,2 anos,60
+Batidoras, 030, garaje, 4 anos,70
+Aspiradoras,031, garaje,3 anos,120
+Escobas, 032, garaje,3 meses,120
+Cubos de limpieza,033, garaje, 1 ano,400
+Carros de limpieza,034, garaje, 3 anos,120
+Destornilladores, 035, garaje, 5 anos,200
+Martillos, 036, garaje, 5 anos,200
+Llaves inglesas, 037, garaje, 5 anos,200
+Alicates,038, garaje, 5 anos,200
+Taladros, 039, garaje,5 anos,70
+Sierras eléctricas,040, garaje,5 anos,45
