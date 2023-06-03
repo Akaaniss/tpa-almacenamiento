@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
 from PyQt6 import QtCore
+from loginWindow import loginWindow
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 
@@ -33,6 +34,10 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
+
+        self.login_window = LoginWindow()
+        self.login_window.login_button.clicked.connect(self.show_main_window)
+        self.login_window.show()
 
         self.inventory_window = None
         self.modify_window = None
