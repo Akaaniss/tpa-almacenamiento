@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         self.modify_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
         layout = QVBoxLayout()
-        layout.addSpacing(50)
+        layout.addSpacing(60)
         layout.addWidget(self.label)
         layout.addStretch()
         layout.addWidget(self.visualize_button)
