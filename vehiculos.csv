@@ -1,1 +1,9 @@
 Nombre,ID,Vida Util,Stock,Encargado,Reparaciones,Cargas de combustible,Revisiones tecnicas,Pagos de permisos de circulacion
+Ford,13,6 anhos,1,Gerente general,Puerta,2,Si,Pagado
+Fiat,14,4 anhos,1,Gerente general,Motor,3,No,Pagado
+Susuki,15,8 anhos,1,Gerente general,No,1,Si,No Pagado
+Toyota,16,7 anhos,1,Gerente general,Cajuela,2,Si,Pagado
+Tesla,17,10 anhos,1,Gerente general,No,1,Si,Pagado
+Subaru,18,5 anhos,1,Gerente general,Frenos Motor,4,Si,Pagado
+kia,19,9 anhos,1,Gerente general,No,0,No,No Pagado
+Hyundai,20,10 anhos,1,Gerente general,No,2,Si,No Pagado
