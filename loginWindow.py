@@ -9,7 +9,7 @@ class LoginWindow(QMainWindow):
         self.setGeometry(200,200,300,200)
 
         self.username_label = QLabel("Usuario")
-        self.password_laber = QLabel("Contraseña")
+        self.password_label = QLabel("Contraseña")
 
         self.username_input = QLineEdit()
         self.password_input = QLineEdit()

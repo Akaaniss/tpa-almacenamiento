@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
 from PyQt6 import QtCore
-from loginWindow import loginWindow
+from loginWindow import LoginWindow
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 

@@ -160,6 +160,12 @@ class ModifyWindow(QWidget):
 
         self.data_label.setText("Producto agregado")
 
+        self.name_input.setText('')
+        self.expiry_input.setText('')
+        self.id_input.setText('')
+        self.vida_util_input.setText('')
+        self.stock_input.setText('')
+
     def get_input_for_field(self, field):
         input_mapping = {
             "Nombre": self.name_input.text,
