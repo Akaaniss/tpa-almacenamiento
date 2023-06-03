@@ -54,9 +54,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Sistema de almacenamiento")
         self.setGeometry(200, 200, 800, 600)
 
-        self.login_window = loginWindow(self)
-        self.login_window.show()
-
         self.label = QLabel("¿Qué desea hacer?")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("font-size: 24px;")
