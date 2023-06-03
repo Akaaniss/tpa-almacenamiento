@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QSpacerItem,QSizePolicy
 from PyQt6 import QtCore
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
@@ -13,6 +13,8 @@ class MainWindow(QMainWindow):
         self.label = QLabel("¿Qué desea hacer?")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("font-size: 24px;")
+
+        spacer_item = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.visualize_button = QPushButton("Visualizar productos")
         self.visualize_button.clicked.connect(self.open_inventory)
