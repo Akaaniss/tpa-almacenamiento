@@ -82,6 +82,9 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
+        self.login_window = loginWindow(self)
+        self.login_window.show()
+
         self.inventory_window = None
         self.modify_window = None
 
