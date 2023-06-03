@@ -42,6 +42,10 @@ class MainWindow(QMainWindow):
         self.inventory_window = None
         self.modify_window = None
 
+    def show_main_window(self):
+        self.login_window.close()
+        self.show()
+        
     def open_inventory(self):
         if self.inventory_window is None:
             self.inventory_window = InventoryWindow(self)
