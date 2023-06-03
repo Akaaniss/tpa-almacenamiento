@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QLineEdit,QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QLineEdit,QMessageBox,QApplication
 from PyQt6 import QtCore
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
@@ -40,12 +40,14 @@ class loginWindow(QWidget):
         password = self.password_input.text()
 
         if username == "admin" and password == "admin":
+            print("Inicio de sesión exitoso")
             self.parent().login_successful()
         else:
             error_dialog = QMessageBox()
             error_dialog.setIcon(QMessageBox.Icon.Critical)
             error_dialog.setWindowTitle("Error de inicio de sesión")
             error_dialog.setText("Usuario o contraseña incorrectos.")
+            print("Inicio de sesión fallido")
             error_dialog.exec()
 
 class MainWindow(QMainWindow):
@@ -79,14 +81,10 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-        self.login_window = loginWindow(self)
-        self.login_window.show()
-
         self.inventory_window = None
         self.modify_window = None
 
     def login_successful(self):
-        self.login_window.hide()
         self.label.setText("¿Qué desea hacer?")
         self.visualize_button.setEnabled(True)
         self.modify_button.setEnabled(True)
@@ -104,4 +102,3 @@ class MainWindow(QMainWindow):
             self.modify_window.set_data("Información para añadir o eliminar productos")
         self.modify_window.show()
         self.hide()
-
