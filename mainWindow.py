@@ -104,3 +104,4 @@ class MainWindow(QMainWindow):
             self.modify_window.set_data("Información para añadir o eliminar productos")
         self.modify_window.show()
         self.hide()
+
