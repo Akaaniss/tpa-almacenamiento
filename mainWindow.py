@@ -1,7 +1,6 @@
 import sys
-from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton, QLineEdit,QMessageBox
 from PyQt6 import QtCore
-from loginWindow import LoginWindow
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 
@@ -10,6 +9,20 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Sistema de almacenamiento")
         self.setGeometry(200, 200, 800, 600)
+
+        self.login_label = QLabel("Inicio de sesión")
+        self.login_label.setStyleSheet("font-size: 24px; margin-bottom: 20px;")
+
+        self.username_label = QLabel("Usuario:")
+        self.password_label = QLabel("Contraseña:")
+
+        self.username_input = QLineEdit()
+        self.password_input = QLineEdit()
+        self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
+
+        self.login_button = QPushButton("Iniciar sesión")
+        self.login_button.clicked.connect(self.login)
+        self.login_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
         self.label = QLabel("¿Qué desea hacer?")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -24,9 +37,13 @@ class MainWindow(QMainWindow):
         self.modify_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
         layout = QVBoxLayout()
+        layout.addWidget(self.login_label)
+        layout.addWidget(self.username_label)
+        layout.addWidget(self.username_input)
+        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_input)
+        layout.addWidget(self.login_button)
         layout.addSpacing(80)
-        layout.addWidget(self.label)
-        layout.addStretch()
         layout.addWidget(self.visualize_button)
         layout.addWidget(self.modify_button)
         layout.addStretch()
@@ -35,17 +52,24 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-        self.login_window = LoginWindow()
-        self.login_window.login_button.clicked.connect(self.show_main_window)
-        self.login_window.show()
-
         self.inventory_window = None
         self.modify_window = None
 
-    def show_main_window(self):
-        self.login_window.close()
-        self.show()
-        
+    def login(self):
+        username = self.username_input.text()
+        password = self.password_input.text()
+
+        if username == "admin" and password == "admin":
+            self.login_label.setText("Inicio de sesión exitoso")
+            self.visualize_button.setEnabled(True)
+            self.modify_button.setEnabled(True)
+        else:
+            error_dialog = QMessageBox()
+            error_dialog.setIcon(QMessageBox.Icon.Critical)
+            error_dialog.setWindowTitle("Error de inicio de sesión")
+            error_dialog.setText("Usuario o contraseña incorrectos.")
+            error_dialog.exec()
+
     def open_inventory(self):
         if self.inventory_window is None:
             self.inventory_window = InventoryWindow(self)
