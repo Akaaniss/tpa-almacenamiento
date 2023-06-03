@@ -74,7 +74,7 @@ class InventoryWindow(QWidget):
         self.show_table_data(titulos, data)
 
     def show_tabla_insumos(self):
-        titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
+        titulos = ["Nombre","ID","Vida Util","Stock"]
         data = []
         with open("insumos.csv", newline="") as csvfile:
             reader = csv.DictReader(csvfile)
