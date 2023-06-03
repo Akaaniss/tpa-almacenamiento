@@ -1,5 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
+import csv
 
 class InventoryWindow(QWidget):
     def __init__(self, main_window):
@@ -58,56 +59,92 @@ class InventoryWindow(QWidget):
             self.show_tabla_vehiculos()
 
     def show_tabla_materiales(self):
-        titulos = ["Nombre", "ID", "Cantidad", "Vida Util", "Habitacion", "Stock"]
-        data = [
-            ["Material 1", "00", "100", "1 año", "1", "100"],
-            ["Material 2", "01", "200", "2 años", "2", "200"],
-            ["Material 3", "02", "300", "3 años", "3", "300"],
-        ]
+        titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
+        data = []
+        with open("materiales.csv", newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                nombre = row["Nombre"]
+                id = row["ID"]
+                habitacion = row["Habitacion"]
+                vida_util = row["Vida Util"]
+                stock = row["Stock"]
+                data.append([nombre, id, habitacion, vida_util, stock])
+
         self.show_table_data(titulos, data)
 
     def show_tabla_insumos(self):
-        titulos = ["Nombre", "ID", "Cantidad", "Vida Util", "Habitacion", "Stock"]
-        data = [
-            ["Insumo 1", "00", "100", "1 año", "1", "100"],
-            ["Insumo 2", "01", "200", "2 años", "2", "200"],
-            ["Insumo 3", "02", "300", "3 años", "3", "300"],
-        ]
+        titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
+        data = []
+        with open("insumos.csv", newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                nombre = row["Nombre"]
+                id = row["ID"]
+                vida_util = row["Vida Util"]
+                stock = row["Stock"]
+                data.append([nombre, id, vida_util, stock])
+
         self.show_table_data(titulos, data)
 
     def show_tabla_herramientas(self):
-        titulos = ["Nombre", "ID", "Cantidad", "Vida Util", "Habitacion", "Stock"]
-        data = [
-            ["Herramienta 1", "00", "100", "1 año", "1", "100"],
-            ["Herramienta 2", "01", "200", "2 años", "2", "200"],
-            ["Herramienta 3", "02", "300", "3 años", "3", "300"],
-        ]
+        titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
+        data = []
+        with open("herramientas.csv", newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                nombre = row["Nombre"]
+                id = row["ID"]
+                habitacion = row["Habitacion"]
+                vida_util = row["Vida Util"]
+                stock = row["Stock"]
+                data.append([nombre, id, habitacion, vida_util, stock])
+
         self.show_table_data(titulos, data)
 
     def show_tabla_muebles(self):
-        titulos = ["Nombre", "ID", "Cantidad", "Vida Util", "Habitacion", "Stock"]
-        data = [
-            ["Mueble 1", "00", "100", "1 año", "1", "100"],
-            ["Mueble 2", "01", "200", "2 años", "2", "200"],
-            ["Mueble 3", "02", "300", "3 años", "3", "300"],
-        ]
+        titulos = ["Nombre","Habitacion","Vida Util","Stock"]
+        data = []
+        with open("muebles.csv", newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                nombre = row["Nombre"]
+                habitacion = row["Habitacion"]
+                vida_util = row["Vida Util"]
+                stock = row["Stock"]
+                data.append([nombre, habitacion, vida_util, stock])
+
         self.show_table_data(titulos, data)
 
+
     def show_tabla_vehiculos(self):
-        titulos = ["Nombre", "ID", "Cantidad", "Vida Util", "Habitacion", "Stock"]
-        data = [
-            ["Vehiculo 1", "00", "100", "1 año", "1", "100"],
-            ["Vehiculo 2", "01", "200", "2 años", "2", "200"],
-            ["Vehiculo 3", "02", "300", "3 años", "3", "300"],
-        ]
+        titulos = ["Nombre","ID","Vida Util","Stock","Encargado","Reparaciones","Cargas de combustible","Revisiones tecnicas","Pagos de permisos de circulacion"]
+        data = []
+        with open("vehiculos.csv", newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                nombre = row["Nombre"]
+                id = row["ID"]
+                vida_util = row["Vida Util"]
+                stock = row["Stock"]
+                encargado = row["Encargado"]
+                reparaciones = row["Reparaciones"]
+                cargas = row["Cargas de combustible"]
+                revisiones =row["Revisiones tecnicas"]
+                pagos = row["Pagos de permisos de circulacion"]
+                data.append([nombre, id, vida_util, stock, encargado, reparaciones, cargas, revisiones, pagos])
+
         self.show_table_data(titulos, data)
 
     def show_table_data(self, titulos, data):
         self.table.clearContents()  
-        self.table.setRowCount(len(data))  
+        self.table.setRowCount(len(data))
+        self.table.setColumnCount(len(titulos))
 
         self.table.setHorizontalHeaderLabels(titulos)
+        self.table.resizeColumnsToContents()
 
         for row, rowData in enumerate(data):
             for column, item in enumerate(rowData):
-                self.table.setItem(row, column, QTableWidgetItem(item))
+                #self.table.setItem(row, column, QTableWidgetItem(item))
+                self.table.setItem(row, column, QTableWidgetItem(str(item)))
