@@ -135,16 +135,20 @@ class LoginWindow(QWidget):
         username = self.username_input.text()
         password = self.password_input.text()
 
-        if username == "admin" and password == "admin":
-            print("Inicio de sesión exitoso")
-            self.login_successful()
-        else:
-            error_dialog = QMessageBox()
-            error_dialog.setIcon(QMessageBox.Icon.Critical)
-            error_dialog.setWindowTitle("Error de inicio de sesión")
-            error_dialog.setText("Usuario o contraseña incorrectos.")
-            print("Inicio de sesión fallido")
-            error_dialog.exec()
+        with open('registro_de_cuentas.csv',newline='') as cuentas:
+                reader = csv.DictReader(cuentas)
+                for row in reader:
+                    if username == row['Usuario'] and password == row['Contrasenha']:
+                        print("Inicio de sesión exitoso")
+                        self.login_successful()
+                        break
+                else:
+                    error_dialog = QMessageBox()
+                    error_dialog.setIcon(QMessageBox.Icon.Critical)
+                    error_dialog.setWindowTitle("Error de inicio de sesión")
+                    error_dialog.setText("Usuario o contraseña incorrectos.")
+                    print("Inicio de sesión fallido")
+                    error_dialog.exec()
 
     def login_successful(self):
         if self.main_window is None:
