@@ -1,6 +1,6 @@
 import sys
 import csv
-from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QMainWindow, QApplication, QFormLayout,QDateEdit
+from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QMainWindow, QApplication, QFormLayout, QDateEdit
 from PyQt6.QtCore import Qt, QDate
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
@@ -65,9 +65,19 @@ class RegisterWindow(QWidget):
             return
 
         if username and password and birthdate and occupation:
-            with open('registro_de_cuentas.csv', 'a', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow([username, password, birthdate, occupation])
+            try:
+                with open('registro_de_cuentas.csv', 'a', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow([username, password, birthdate, occupation])
+            except OSError as e:
+                error_dialog = QMessageBox()
+                error_dialog.setIcon(QMessageBox.Icon.Critical)
+                error_dialog.setWindowTitle("Error de registro")
+                error_dialog.setText("Error al escribir en el archivo CSV.")
+                error_dialog.exec()
+                print(f"Error al escribir en el archivo CSV: {e}")
+                return
+
             print("Registro exitoso")
             self.close()
             self.login_window.show()
