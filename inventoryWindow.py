@@ -146,5 +146,4 @@ class InventoryWindow(QWidget):
 
         for row, rowData in enumerate(data):
             for column, item in enumerate(rowData):
-                #self.table.setItem(row, column, QTableWidgetItem(item))
                 self.table.setItem(row, column, QTableWidgetItem(str(item)))

@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButt
 from PyQt6 import QtCore
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
+from eliminarWindow import EliminarWindow
 
 class loginWindow(QWidget):
     def __init__(self):
@@ -57,7 +58,7 @@ class loginWindow(QWidget):
             self.windos = MainWindow()
         self.windos.show()
         self.hide()
-     
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -77,12 +78,17 @@ class MainWindow(QMainWindow):
         self.modify_button.clicked.connect(self.open_modify_window)
         self.modify_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
+        self.eliminar_button = QPushButton("Eliminar productos")
+        self.eliminar_button.clicked.connect(self.open_eliminar_window)
+        self.eliminar_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
+
         layout = QVBoxLayout()
         layout.addSpacing(80)
         layout.addWidget(self.label)
         layout.addStretch()
         layout.addWidget(self.visualize_button)
         layout.addWidget(self.modify_button)
+        layout.addWidget(self.eliminar_button)
         layout.addStretch()
 
         central_widget = QWidget()
@@ -91,6 +97,7 @@ class MainWindow(QMainWindow):
 
         self.inventory_window = None
         self.modify_window = None
+        self.eliminar_window = None
 
     def login_successful(self):
         self.label.setText("¿Qué desea hacer?")
@@ -110,4 +117,11 @@ class MainWindow(QMainWindow):
             self.modify_window.set_data("Información para añadir o eliminar productos")
         self.modify_window.show()
         self.hide()
+
+    def open_eliminar_window(self):
+        if self.eliminar_window is None:
+            self.eliminar_window = EliminarWindow(self)
+        self.eliminar_window.show()
+        self.hide()
+
     
