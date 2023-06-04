@@ -6,6 +6,7 @@ from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 from eliminarWindow import EliminarWindow
 
+#esta clase edita la parte del registro del usuario, donde estos registros se guardan en el csv registro_de_cuentas
 class RegisterWindow(QWidget):
     def __init__(self, login_window):
         super().__init__()
@@ -49,7 +50,8 @@ class RegisterWindow(QWidget):
         layout.addStretch()
 
         self.setLayout(layout)
-
+#en este def, se puede modificar la ventana de registrarse
+#se puede modificar que se muestra en la ventana, como el nombre de usuario, la contraseña y la ocupacion en el hotel
     def register(self):
         username = self.username_input.text()
         password = self.password_input.text()
@@ -92,6 +94,7 @@ class RegisterWindow(QWidget):
         self.close()
         self.login_window.show()
 
+#en esta clase se pueden arreglar diferentes cosas del inicio de sesion, como el tamaño de la interfaz y que es lo que saldrá en la ventana
 class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -135,20 +138,16 @@ class LoginWindow(QWidget):
         username = self.username_input.text()
         password = self.password_input.text()
 
-        with open('registro_de_cuentas.csv',newline='') as cuentas:
-                reader = csv.DictReader(cuentas)
-                for row in reader:
-                    if username == row['Usuario'] and password == row['Contrasenha']:
-                        print("Inicio de sesión exitoso")
-                        self.login_successful()
-                        break
-                else:
-                    error_dialog = QMessageBox()
-                    error_dialog.setIcon(QMessageBox.Icon.Critical)
-                    error_dialog.setWindowTitle("Error de inicio de sesión")
-                    error_dialog.setText("Usuario o contraseña incorrectos.")
-                    print("Inicio de sesión fallido")
-                    error_dialog.exec()
+        if username == "admin" and password == "admin":
+            print("Inicio de sesión exitoso")
+            self.login_successful()
+        else:
+            error_dialog = QMessageBox()
+            error_dialog.setIcon(QMessageBox.Icon.Critical)
+            error_dialog.setWindowTitle("Error de inicio de sesión")
+            error_dialog.setText("Usuario o contraseña incorrectos.")
+            print("Inicio de sesión fallido")
+            error_dialog.exec()
 
     def login_successful(self):
         if self.main_window is None:
@@ -160,7 +159,8 @@ class LoginWindow(QWidget):
         self.register_window = RegisterWindow(self)
         self.hide()
         self.register_window.show()
-
+#esta es la ventana principal, donde se muestran 3 botones
+#que en este caso sería visualizar productos, añadir productos y eliminar productos
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
