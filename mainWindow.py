@@ -8,7 +8,7 @@ class loginWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Inicio de sesión")
-        self.setGeometry(200, 200, 400, 300)
+        self.setGeometry(200, 200, 800, 600)
 
         self.login_label = QLabel("Inicio de sesión")
         self.login_label.setStyleSheet("font-size: 24px; margin-bottom: 20px;")
