@@ -61,14 +61,17 @@ class EliminarWindow(QWidget):
             reader = csv.reader(file)
             next(reader)  
             for row in reader:
-                self.table.insertRow(self.table.rowCount())
+                if row:  
+                    self.table.insertRow(self.table.rowCount())
 
-                name_item = QTableWidgetItem(row[0])
-                self.table.setItem(self.table.rowCount() - 1, 0, name_item)
+                    name_item = QTableWidgetItem(row[0])
+                    self.table.setItem(self.table.rowCount() - 1, 0, name_item)
 
-                delete_button = QPushButton("Eliminar")
-                delete_button.clicked.connect(self.delete_product)
-                self.table.setCellWidget(self.table.rowCount() - 1, 1, delete_button)
+                    delete_button = QPushButton("Eliminar")
+                    delete_button.clicked.connect(self.delete_product)
+                    self.table.setCellWidget(self.table.rowCount() - 1, 1, delete_button)
+
+
 
     def delete_product(self):
         button = self.sender()

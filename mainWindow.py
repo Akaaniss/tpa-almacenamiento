@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         self.visualize_button.clicked.connect(self.open_inventory)
         self.visualize_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
-        self.modify_button = QPushButton("Añadir o eliminar productos")
+        self.modify_button = QPushButton("Añadir productos")
         self.modify_button.clicked.connect(self.open_modify_window)
         self.modify_button.setStyleSheet("font-size: 18px; padding: 10px 20px;")
 
