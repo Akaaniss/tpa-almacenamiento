@@ -1,12 +1,12 @@
 import sys
-from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QLineEdit,QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton,QLineEdit,QMessageBox,QApplication
 from PyQt6 import QtCore
 from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 
 class loginWindow(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle("Inicio de sesión")
         self.setGeometry(200, 200, 400, 300)
 
@@ -35,13 +35,15 @@ class loginWindow(QWidget):
 
         self.setLayout(layout)
 
+        self.loginPanel = None
+
     def login(self):
         username = self.username_input.text()
         password = self.password_input.text()
 
         if username == "admin" and password == "admin":
             print("Inicio de sesión exitoso")
-            self.parent().login_successful()
+            self.login_successful()
         else:
             error_dialog = QMessageBox()
             error_dialog.setIcon(QMessageBox.Icon.Critical)
@@ -49,6 +51,13 @@ class loginWindow(QWidget):
             error_dialog.setText("Usuario o contraseña incorrectos.")
             print("Inicio de sesión fallido")
             error_dialog.exec()
+    
+    def login_successful(self):
+        if self.loginPanel is None:
+            self.windos = MainWindow()
+        self.windos.show()
+        self.hide()
+     
 
 class MainWindow(QMainWindow):
     def __init__(self):
