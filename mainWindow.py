@@ -1,4 +1,3 @@
-import sys
 import csv
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QMainWindow, QApplication, QFormLayout, QDateEdit
 from PyQt6.QtCore import Qt, QDate
@@ -6,8 +5,8 @@ from modifyWindow import ModifyWindow
 from inventoryWindow import InventoryWindow
 from eliminarWindow import EliminarWindow
 
-#esta clase edita la parte del registro del usuario, donde estos registros se guardan en el csv registro_de_cuentas
 class RegisterWindow(QWidget):
+    #def constructor de la clase registerwindow que recibe una ventana de inicio de sesion como argumento
     def __init__(self, login_window):
         super().__init__()
         self.setWindowTitle("Registro")
@@ -52,6 +51,8 @@ class RegisterWindow(QWidget):
         self.setLayout(layout)
 #en este def, se puede modificar la ventana de registrarse
 #se puede modificar que se muestra en la ventana, como el nombre de usuario, la contraseña y la ocupacion en el hotel
+#tambien verifica si se cumplen ciertas condiciones como la longitud de la contraseña
+#y guarda la informacion en un csv "registro_de_cuentas.csv" y si hay algun error lo muestra en pantalla
     def register(self):
         username = self.username_input.text()
         password = self.password_input.text()
@@ -91,12 +92,15 @@ class RegisterWindow(QWidget):
             error_dialog.exec()
 
     def back(self):
+        #metodo de la clase registerwindow, que se llama cuando se le hace click en volver
+        #cerrando la ventana actual y volviendo a la ventana de inicio de sesion
         self.close()
         self.login_window.show()
 
-#en esta clase se pueden arreglar diferentes cosas del inicio de sesion, como el tamaño de la interfaz y que es lo que saldrá en la ventana
 class LoginWindow(QWidget):
+#define una clase llamada loginwindow que hereda de Qwidget, representa la ventana de inicio de sesion
     def __init__(self):
+        #constructor de loginwindow,pudiendose configurar la apariencia y tambien los widgets de la ventana de inicio de sesion
         super().__init__()
         self.setWindowTitle("Inicio de sesión")
         self.setGeometry(200, 200, 400, 300)
@@ -135,6 +139,10 @@ class LoginWindow(QWidget):
         self.main_window = None
 
     def login(self):
+        #metodo de la clase loginwindow, que se llama cuando hace click en iniciar sesion
+        #verifica si el usuario y la contraseña estan bien
+        #si el inicio de sesion es exitoso, muestra la ventana principal "mainwindow"
+        #de lo contrario muestra un dialogo de error
         username = self.username_input.text()
         password = self.password_input.text()
 
@@ -150,12 +158,17 @@ class LoginWindow(QWidget):
             error_dialog.exec()
 
     def login_successful(self):
+        #metodo de la clase loginwindow que se llama cuando el inicio de sesion es exitoso
+        #muestra la ventana principal y oculta la de inicio de sesion
         if self.main_window is None:
             self.main_window = MainWindow()
         self.main_window.show()
         self.hide()
 
     def open_register_window(self):
+        #metodo de la clase login window que se llama cuando se hace click en el boton de registrarse
+        #crea una instancia en ventana de registro "registerwindow"
+        #mostrandola y ocultando la de incio de sesion
         self.register_window = RegisterWindow(self)
         self.hide()
         self.register_window.show()
@@ -163,6 +176,7 @@ class LoginWindow(QWidget):
 #que en este caso sería visualizar productos, añadir productos y eliminar productos
 class MainWindow(QMainWindow):
     def __init__(self):
+        #constructor de la clase mainwindow configurando la apariencia y los widgets 
         super().__init__()
         self.setWindowTitle("Sistema de almacenamiento")
         self.setGeometry(200, 200, 800, 600)
@@ -201,11 +215,16 @@ class MainWindow(QMainWindow):
         self.eliminar_window = None
 
     def login_successful(self):
+        #metodo de la clase mainwindow que se llama cuando el inicio de sesion es exitoso
+        #habilitando los botones de visualizacion y modificacion del inventario
         self.label.setText("¿Qué desea hacer?")
         self.visualize_button.setEnabled(True)
         self.modify_button.setEnabled(True)
 
     def open_inventory(self):
+        #metodo de la clase mainwindow que se llama cuando se hace click en el boton de visualizar productos
+        #crea una instancia de la ventana inventario "invetorywindow" 
+        #pasando informacion y la muestra, ocultando la ventana principal
         if self.inventory_window is None:
             self.inventory_window = InventoryWindow(self)
             self.inventory_window.set_data("Información de visualización de productos")
@@ -213,6 +232,9 @@ class MainWindow(QMainWindow):
         self.hide()
 
     def open_modify_window(self):
+        #metodo de la clase mainwindow que se llama cuando se hace click en el boton añadir productos
+        #crea una instancia de la ventana modificacion "modifywindow"
+        #pasando informacion y ocultando la ventana principal
         if self.modify_window is None:
             self.modify_window = ModifyWindow(self)
             self.modify_window.set_data("Información para añadir o eliminar productos")
@@ -220,6 +242,9 @@ class MainWindow(QMainWindow):
         self.hide()
 
     def open_eliminar_window(self):
+        #metodo de la clase mainwindow, que se llama cuando se hace click en el boton de eliminar productos
+        #crea una instancia de la ventana de eliminacion "eliminarwindow"
+        #pasando informacion y ocultando la ventana principal
         if self.eliminar_window is None:
             self.eliminar_window = EliminarWindow(self)
         self.eliminar_window.show()
