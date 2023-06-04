@@ -99,7 +99,7 @@ class EliminarWindow(QWidget):
             with open(csv_filename, "w", newline="") as file:
                 writer = csv.writer(file)
                 for r in rows:
-                    if r[0] != product_name:  
+                    if len(r) > 0 and r[0] != product_name:  
                         writer.writerow(r)
 
             self.mostrar_productos()
