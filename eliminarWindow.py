@@ -1,7 +1,10 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
-import csv
+import csv # Se importa el modulo csv para posteriormente trabajar con este tipo de archivos
 
+# En esta clase se crea la ventana para eliminar productos del inventario
 class EliminarWindow(QWidget):
+
+    # Constructor: se define el tamaño de la ventana y los componentes que va tener
     def __init__(self, main_window):
         super().__init__()
         self.main_window = main_window
@@ -11,6 +14,7 @@ class EliminarWindow(QWidget):
         self.back_button = QPushButton("Volver")
         self.back_button.clicked.connect(self.go_back)
 
+        # Se crea una ComboBox con los diferentes productos, para posteriormente conectarlos a los archivos csv
         self.delete_label = QLabel("Seleccione el producto a eliminar:")
         self.delete_combo = QComboBox()
         self.delete_combo.addItem("Insumos")
@@ -20,25 +24,33 @@ class EliminarWindow(QWidget):
         self.delete_combo.addItem("Vehiculos")
         self.delete_combo.currentTextChanged.connect(self.mostrar_productos)
 
+        # Se crea una tabla de dos filas, una con el nombre del producto y otra para eliminar
         self.table = QTableWidget()
         self.table.setColumnCount(2)
         self.table.setHorizontalHeaderLabels(["Nombre", "Eliminar"])
 
+        # Se agregan todos los componentes al Layout Vertical
         layout = QVBoxLayout()
         layout.addWidget(self.delete_label)
         layout.addWidget(self.delete_combo)
         layout.addWidget(self.table)
         layout.addWidget(self.back_button)
 
+        # Se crea un widget para establecerlo como widget principal y se establece el 
+        # layout creado anteriormente como componente del widget principal
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setLayout(layout)
 
+    # Se crea una función para ocultar la ventana actual y mostrar la ventana principal
     def go_back(self):
         self.main_window.show()
         self.hide()
 
+    # Se crea la función que se llama al seleccionar una opción de la ComboBox
     def mostrar_productos(self):
+
+        # Conecta la opcion selecciona en la ComboBox con el archivo csv correspondiente
         selected_option = self.delete_combo.currentText()
 
         if selected_option == "Insumos":
@@ -54,31 +66,37 @@ class EliminarWindow(QWidget):
         else:
             csv_filename = ""
 
-
+        # Elimina las filas de la tabla
         self.table.setRowCount(0)  
 
+        # Abre el archivo csv según la opción seleccionada en la ComboBox y recorre sus filas con csv.reader(file)
         with open(csv_filename, newline="") as file:
             reader = csv.reader(file)
             next(reader)  
             for row in reader:
                 if row:  
+                    # Se coloca una nueva fila en la tabla
                     self.table.insertRow(self.table.rowCount())
 
+                    # Se agrega el nombre del producto en la primera columna 
                     name_item = QTableWidgetItem(row[0])
                     self.table.setItem(self.table.rowCount() - 1, 0, name_item)
 
+                    # Se coloca el boton de eliminar en la segunda columna, se conecta a la funcion delete_product
                     delete_button = QPushButton("Eliminar")
                     delete_button.clicked.connect(self.delete_product)
                     self.table.setCellWidget(self.table.rowCount() - 1, 1, delete_button)
 
-
-
+    # Se crea una función la cual se llama al apretar el boton de "eliminar"
     def delete_product(self):
+        # Se ve qué botón emitio la señal conectada a la función
         button = self.sender()
         if button:
             row = self.table.indexAt(button.pos()).row()
+            # Obtiene la fila y el nombre del producto seleccionado
             product_name = self.table.item(row, 0).text()
 
+            # Se obtiene la opcion seleccionada en la ComboBox 
             selected_option = self.delete_combo.currentText()
             if selected_option == "Insumos":
                 csv_filename = "insumos.csv"
@@ -93,13 +111,16 @@ class EliminarWindow(QWidget):
             else:
                 csv_filename = ""
 
+            # Se leen todas las filas del csv
             with open(csv_filename, "r") as file:
                 rows = list(csv.reader(file))
 
+            # Se escriben las filas en el archivo csv excepto la fila del producto eliminado
             with open(csv_filename, "w", newline="") as file:
                 writer = csv.writer(file)
                 for r in rows:
                     if len(r) > 0 and r[0] != product_name:  
                         writer.writerow(r)
 
+            # Se actualiza la tabla luego de eliminar el producto
             self.mostrar_productos()
