@@ -2,6 +2,7 @@ import sys
 from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
 import csv
 
+#clase para el inventario 
 class InventoryWindow(QWidget):
     def __init__(self, main_window):
         super().__init__()
@@ -10,7 +11,7 @@ class InventoryWindow(QWidget):
         self.setGeometry(200, 200, 600, 400)
 
         self.back_button = QPushButton("Volver")
-        self.back_button.clicked.connect(self.go_back)
+        self.back_button.clicked.connect(self.go_back)#evento para el boton de regreso al menu principal
 
         self.data_label = QLabel()
 
@@ -21,7 +22,7 @@ class InventoryWindow(QWidget):
         self.view_combo.addItem("Herramientas")
         self.view_combo.addItem("Muebles")
         self.view_combo.addItem("Vehiculos")
-        self.view_combo.currentIndexChanged.connect(self.show_table) 
+        self.view_combo.currentIndexChanged.connect(self.show_table)#evento para los cambios de tablas por tipo
 
         self.table = QTableWidget() 
         self.table.setRowCount(6)  
@@ -38,13 +39,17 @@ class InventoryWindow(QWidget):
         central_widget.setLayout(layout)
         self.setLayout(layout)
 
+
     def set_data(self, data):
         self.data_label.setText(data) 
 
+    #funcion para regresar al menu princiapl
     def go_back(self):
         self.main_window.show()
         self.hide()
 
+    #funcion para registrar los cambios de "tipó" en las tablas
+    # y ejecutar sus 'tablas' con sus productos especificos
     def show_table(self):
         selected_option = self.view_combo.currentText()
         if selected_option == "Materiales":
@@ -58,6 +63,8 @@ class InventoryWindow(QWidget):
         elif selected_option == "Vehiculos":
             self.show_tabla_vehiculos()
 
+    #funcion que organiza los productos  especificos de los 
+    # productos de tipo 'materiales' con sus respectivos 'atributos' y/o 'etiquetas'
     def show_tabla_materiales(self):
         titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
         data = []
@@ -73,6 +80,8 @@ class InventoryWindow(QWidget):
 
         self.show_table_data(titulos, data)
 
+    #funcion que organiza los productos  especificos de los 
+    # productos de tipo 'insumos' con sus respectivos 'atributos' y/o 'etiquetas'
     def show_tabla_insumos(self):
         titulos = ["Nombre","ID","Vida Util","Stock"]
         data = []
@@ -87,6 +96,8 @@ class InventoryWindow(QWidget):
 
         self.show_table_data(titulos, data)
 
+    #funcion que organiza los productos  especificos de los 
+    # productos de tipo 'herramientas' con sus respectivos 'atributos' y/o 'etiquetas'
     def show_tabla_herramientas(self):
         titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
         data = []
@@ -102,6 +113,8 @@ class InventoryWindow(QWidget):
 
         self.show_table_data(titulos, data)
 
+    #funcion que organiza los productos  especificos de los 
+    # productos de tipo 'muebles' con sus respectivos 'atributos' y/o 'etiquetas'
     def show_tabla_muebles(self):
         titulos = ["Nombre","Habitacion","Vida Util","Stock"]
         data = []
@@ -116,7 +129,8 @@ class InventoryWindow(QWidget):
 
         self.show_table_data(titulos, data)
 
-
+    #funcion que organiza los productos  especificos de los 
+    # productos de tipo 'Vehiculo' con sus respectivos 'atributos' y/o 'etiquetas'
     def show_tabla_vehiculos(self):
         titulos = ["Nombre","ID","Vida Util","Stock","Encargado","Reparaciones","Cargas de combustible","Revisiones tecnicas","Pagos de permisos de circulacion"]
         data = []
@@ -136,6 +150,8 @@ class InventoryWindow(QWidget):
 
         self.show_table_data(titulos, data)
 
+    #funcion que permite mostrar una tabla ordenada previa la
+    # organizacion de sus 'etiquetas' y/o 'atributos' de los productos
     def show_table_data(self, titulos, data):
         self.table.clearContents()  
         self.table.setRowCount(len(data))
