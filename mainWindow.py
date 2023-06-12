@@ -69,7 +69,7 @@ class RegisterWindow(QWidget):
 
         if username and password and birthdate and occupation:
             try:
-                with open('registro_de_cuentas.csv', 'a', newline='') as file:
+                with open('registro_de_cuentas.csv', 'a', newline='', encoding='utf-8-sig') as file:
                     writer = csv.writer(file)
                     writer.writerow([username, password, birthdate, occupation])
             except OSError as e:
@@ -145,7 +145,7 @@ class LoginWindow(QWidget):
         #de lo contrario muestra un dialogo de error
         username = self.username_input.text()
         password = self.password_input.text()
-        with open('registro_de_cuentas.csv',newline='') as cuentas:
+        with open('registro_de_cuentas.csv',newline='', encoding='utf-8-sig') as cuentas:
             reader = csv.DictReader(cuentas)
             for row in reader:
                 if username == row['Usuario'] and password == row['Contrasenha']:

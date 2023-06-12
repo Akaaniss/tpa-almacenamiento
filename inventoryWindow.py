@@ -68,7 +68,7 @@ class InventoryWindow(QWidget):
     def show_tabla_materiales(self):
         titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
         data = []
-        with open("materiales.csv", newline="") as csvfile:
+        with open("materiales.csv", newline="", encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 nombre = row["Nombre"]
@@ -85,7 +85,7 @@ class InventoryWindow(QWidget):
     def show_tabla_insumos(self):
         titulos = ["Nombre","ID","Vida Util","Stock"]
         data = []
-        with open("insumos.csv", newline="") as csvfile:
+        with open("insumos.csv", newline="", encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 nombre = row["Nombre"]
@@ -101,7 +101,7 @@ class InventoryWindow(QWidget):
     def show_tabla_herramientas(self):
         titulos = ["Nombre","ID","Habitacion","Vida Util","Stock"]
         data = []
-        with open("herramientas.csv", newline="") as csvfile:
+        with open("herramientas.csv", newline="", encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 nombre = row["Nombre"]
@@ -118,7 +118,7 @@ class InventoryWindow(QWidget):
     def show_tabla_muebles(self):
         titulos = ["Nombre","Habitacion","Vida Util","Stock"]
         data = []
-        with open("muebles.csv", newline="") as csvfile:
+        with open("muebles.csv", newline="", encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 nombre = row["Nombre"]
@@ -134,7 +134,7 @@ class InventoryWindow(QWidget):
     def show_tabla_vehiculos(self):
         titulos = ["Nombre","ID","Vida Util","Stock","Encargado","Reparaciones","Cargas de combustible","Revisiones tecnicas","Pagos de permisos de circulacion"]
         data = []
-        with open("vehiculos.csv", newline="") as csvfile:
+        with open("vehiculos.csv", newline="", encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 nombre = row["Nombre"]
