@@ -118,6 +118,9 @@ class ModifyWindow(QWidget):
         if not name:
             self.data_label.setText("El campo de nombre es obligatorio.")
             return
+        if not id:
+            self.id_label.setText("El campo de nombre es obligatorio.")
+            return
 
         # Se inicializan las variables csv_file y required_fields
         csv_file = ""
