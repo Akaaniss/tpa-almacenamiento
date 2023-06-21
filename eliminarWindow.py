@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QComboBox, QTableWidget, QTableWidgetItem, QMessageBox
 import csv # Se importa el modulo csv para posteriormente trabajar con este tipo de archivos
 
 # En esta clase se crea la ventana para eliminar productos del inventario
@@ -87,40 +87,43 @@ class EliminarWindow(QWidget):
                     delete_button.clicked.connect(self.delete_product)
                     self.table.setCellWidget(self.table.rowCount() - 1, 1, delete_button)
 
-    # Se crea una función la cual se llama al apretar el boton de "eliminar"
     def delete_product(self):
-        # Se ve qué botón emitio la señal conectada a la función
+        # Se ve qué botón emitió la señal conectada a la función
         button = self.sender()
         if button:
+            # Se obtiene la fila y el nombre del producto seleccionado
             row = self.table.indexAt(button.pos()).row()
-            # Obtiene la fila y el nombre del producto seleccionado
             product_name = self.table.item(row, 0).text()
 
-            # Se obtiene la opcion seleccionada en la ComboBox 
-            selected_option = self.delete_combo.currentText()
-            if selected_option == "Insumos":
-                csv_filename = "insumos.csv"
-            elif selected_option == "Materiales":
-                csv_filename = "materiales.csv"
-            elif selected_option == "Herramientas":
-                csv_filename = "herramientas.csv"
-            elif selected_option == "Muebles":
-                csv_filename = "muebles.csv"
-            elif selected_option == "Vehiculos":
-                csv_filename = "vehiculos.csv"
-            else:
-                csv_filename = ""
+            #Ventana de confirmacion antes de eliminar el producto
+            confirmacion = QMessageBox.question(self, "Confirmación", f"¿Está seguro de eliminar el producto {product_name}?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            # Verificar la respuesta del usuario
+            if confirmacion == QMessageBox.StandardButton.Si:
+                # Se obtiene la opción seleccionada en la ComboBox
+                selected_option = self.delete_combo.currentText()
+                if selected_option == "Insumos":
+                    csv_filename = "insumos.csv"
+                elif selected_option == "Materiales":
+                    csv_filename = "materiales.csv"
+                elif selected_option == "Herramientas":
+                    csv_filename = "herramientas.csv"
+                elif selected_option == "Muebles":
+                    csv_filename = "muebles.csv"
+                elif selected_option == "Vehiculos":
+                    csv_filename = "vehiculos.csv"
+                else:
+                    csv_filename = ""
 
-            # Se leen todas las filas del csv
-            with open(csv_filename, "r") as file:
-                rows = list(csv.reader(file))
+                # Se leen todas las filas del csv
+                with open(csv_filename, "r") as file:
+                    rows = list(csv.reader(file))
 
-            # Se escriben las filas en el archivo csv excepto la fila del producto eliminado
-            with open(csv_filename, "w", newline="") as file:
-                writer = csv.writer(file)
-                for r in rows:
-                    if len(r) > 0 and r[0] != product_name:  
-                        writer.writerow(r)
+                # Se escriben las filas en el archivo csv excepto la fila del producto eliminado
+                with open(csv_filename, "w", newline="") as file:
+                    writer = csv.writer(file)
+                    for r in rows:
+                        if len(r) > 0 and r[0] != product_name:
+                            writer.writerow(r)
 
-            # Se actualiza la tabla luego de eliminar el producto
-            self.mostrar_productos()
+                # Se actualiza la tabla luego de eliminar el producto
+                self.mostrar_productos()
